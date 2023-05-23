@@ -1,8 +1,7 @@
 import { useState } from "react";
-import SignIn from "@/Components/SigIn";
 import SignUp from "@/Components/SignUp";
 
-export default function Home() {
+export default function signup() {
   const [showSignUp, setShowSignUp] = useState(false);
 
   const toggleSignUp = () => {
@@ -11,7 +10,7 @@ export default function Home() {
 
   return (
     <>
-     <SignIn />
+      <SignUp/>
     </>
   );
 }

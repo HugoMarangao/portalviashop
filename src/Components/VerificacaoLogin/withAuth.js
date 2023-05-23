@@ -10,7 +10,7 @@ const withAuth = (Component) => {
     useEffect(() => {
       const unsubscribe = auth.onAuthStateChanged((user) => {
         if (!user) {
-          router.push("/signin");
+          router.push("/");
         }
       });
 

@@ -1,9 +1,7 @@
 import { admin } from "@/config/firebaseAdmin";
-// import { pegarTokens } from "@/Servicos/firestore";
 import { pegarTokensEmpresa } from "@/Servicos/pegarTokensEmpresa";
 
 export default async function handler(req, res) {
-  // This registration token comes from the client FCM SDKs.
   const { title, body, id } = req.body;
 
   const tokens = await pegarTokensEmpresa(id);
@@ -16,13 +14,14 @@ export default async function handler(req, res) {
     tokens: tokens,
   };
 
-  // Send a message to the device corresponding to the provided
-  // registration token.
   try {
-    await admin?.messaging()?.sendEachForMulticast(message);
-    console.log("Notificacao enviada com sucesso!");
+    const response = await admin.messaging().sendMulticast(message);
+    console.log("Notificação enviada com sucesso!");
+    console.log("Tokens entregues:", response.successCount);
+    console.log("Tokens com erro:", response.failureCount);
     res.status(200).json({
-      status: "Notificacao enviada com sucesso!",
+      status: "Notificação enviada com sucesso!",
+      successCount: response.successCount
     });
   } catch (error) {
     console.log(error);
