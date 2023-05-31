@@ -2,14 +2,24 @@ import { admin } from "@/config/firebaseAdmin";
 import { pegarTokensEmpresa } from "@/Servicos/pegarTokensEmpresa";
 
 export default async function handler(req, res) {
-  const { title, body, id } = req.body;
+  const { title, body, id} = req.body;
 
   const tokens = await pegarTokensEmpresa(id);
+  const url = req.body.url || ""; 
+  const image = req.body.url || ""; 
 
   const message = {
     notification: {
       title: title,
       body: body
+    },
+    android: {
+      notification: {
+        imageUrl: image
+      }
+    },  
+     data: {
+      data: url
     },
     tokens: tokens,
   };

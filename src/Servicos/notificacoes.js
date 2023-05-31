@@ -1,8 +1,10 @@
-export async function enviarnotificacao(title, body, id) {
+export async function enviarnotificacao(title, body, id, url, image) {
   const dados = {
     title,
     body,
     id,
+    url,
+    image
   };
 
   const resultado = await fetch("/api/notificacoes", {

@@ -74,7 +74,7 @@ const SignIn = () => {
           {isLoading ? "Carregando..." : "Entrar"}
         </button> {/* Alteração do texto do botão com base no estado de carregamento */}
       </form>
-      <Link href={"/signup"}>Criar conta</Link>
+      <Link href={"/criarConta"}>Criar conta</Link>
     </div>
   );
 };

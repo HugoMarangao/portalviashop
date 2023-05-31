@@ -9,10 +9,11 @@ import { useRouter } from "next/router";
 import { format } from "date-fns";
 
 const Principal = ({userId}) => {
-  const [empresa, setEmpresa] = useState(null);
   const [titulo, setTitulo] = useState("");
   const [id, setId] = useState(userId);
   const [mensagem, setMensagem] = useState("");
+  const [url, setUrl] = useState("");
+  const [image, setImage] = useState("");
   const [messageSent, setMessageSent] = useState(false);
   const router = useRouter();
   const [notificacoes, setNotificacoes] = useState([]);
@@ -31,7 +32,7 @@ const Principal = ({userId}) => {
     event.preventDefault();
     try {
       // Enviar a notificação
-      await enviarnotificacao(titulo, mensagem, id);
+      await enviarnotificacao(titulo, mensagem, id, url, image);
   
       // Salvar a notificação no Firestore
       const notificacoesRef = collection(
@@ -52,7 +53,7 @@ const Principal = ({userId}) => {
       setMensagem("");
       toast.success("Notificacao Enviada");
     } catch (error) {
-      console.error("Erro ao enviar a notificação:", error);
+      console.log( error);
       toast.error("Ocorreu um erro", error);
     }
   };
@@ -105,6 +106,28 @@ const Principal = ({userId}) => {
           />
         </div>
         <div className={styles.form2}>
+          <label htmlFor="Url"></label>
+          <input
+            id="Url"
+            name="Url"
+            type="text"
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
+            placeholder="Url (opcinal)"
+          />
+        </div>
+        <div className={styles.form2}>
+          <label htmlFor="image"></label>
+          <input
+            id="image"
+            name="image"
+            type="text"
+            value={image}
+            onChange={(e) => setImage(e.target.value)}
+            placeholder="image (opcinal)"
+          />
+        </div>
+        <div className={styles.form2}>
           <label htmlFor="Id"></label>
           <input
             id="Id"
@@ -121,7 +144,7 @@ const Principal = ({userId}) => {
         </button>
        
       </form>     
-      <div className={styles.notificacoes}>
+      {/* <div className={styles.notificacoes}>
         <h2>Notificações</h2>
         {notificacoes.map((notificacao) => (
           <div key={notificacao.id} className={styles.notificacaoItem}>
@@ -130,7 +153,7 @@ const Principal = ({userId}) => {
             <p>{format(notificacao.dataEnviada.toDate(), "dd/MM/yyyy HH:mm:ss")}</p>
           </div>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 };
