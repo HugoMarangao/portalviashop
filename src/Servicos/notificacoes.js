@@ -1,9 +1,9 @@
-export async function enviarnotificacao(title, body, id, url, image) {
+export async function enviarnotificacao(title, body, id, link, image) {
   const dados = {
     title,
     body,
     id,
-    url,
+    link,
     image
   };
 

@@ -12,11 +12,11 @@ const Principal = ({userId}) => {
   const [titulo, setTitulo] = useState("");
   const [id, setId] = useState(userId);
   const [mensagem, setMensagem] = useState("");
-  const [url, setUrl] = useState("");
-  const [image, setImage] = useState("");
   const [messageSent, setMessageSent] = useState(false);
   const router = useRouter();
   const [notificacoes, setNotificacoes] = useState([]);
+  const [link, setLink] = useState("");
+  const [image,setImage] = useState("");
 
   const handleLogout = async () => {
     const auth = getAuth();
@@ -32,7 +32,8 @@ const Principal = ({userId}) => {
     event.preventDefault();
     try {
       // Enviar a notificação
-      await enviarnotificacao(titulo, mensagem, id, url, image);
+      await enviarnotificacao(titulo, mensagem, id, link,image);
+
   
       // Salvar a notificação no Firestore
       const notificacoesRef = collection(
@@ -51,6 +52,8 @@ const Principal = ({userId}) => {
       setMessageSent(true);
       setTitulo("");
       setMensagem("");
+      setLink("");
+      setImage("");
       toast.success("Notificacao Enviada");
     } catch (error) {
       console.log( error);
@@ -106,25 +109,25 @@ const Principal = ({userId}) => {
           />
         </div>
         <div className={styles.form2}>
-          <label htmlFor="Url"></label>
+          <label htmlFor="link"></label>
           <input
-            id="Url"
-            name="Url"
+            id="link"
+            name="link"
             type="text"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-            placeholder="Url (opcinal)"
+            value={link}
+            onChange={(e) => setLink(e.target.value)}
+            placeholder="Link:"
           />
         </div>
         <div className={styles.form2}>
-          <label htmlFor="image"></label>
+          <label htmlFor="Image"></label>
           <input
             id="image"
             name="image"
             type="text"
             value={image}
             onChange={(e) => setImage(e.target.value)}
-            placeholder="image (opcinal)"
+            placeholder="Image:"
           />
         </div>
         <div className={styles.form2}>
