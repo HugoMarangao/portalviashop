@@ -2,7 +2,7 @@ import { admin } from "@/config/firebaseAdmin";
 import { pegarTokensEmpresa } from "@/Servicos/pegarTokensEmpresa";
 
 export default async function handler(req, res) {
-  const { title, body, id,link, image} = req.body;
+  const { title, body, id,link, image, icon} = req.body;
 
   const tokens = await pegarTokensEmpresa(id);
 
@@ -14,7 +14,8 @@ export default async function handler(req, res) {
       image: image
     },
     data: {
-      data: link
+      url: link,
+      icon: icon
     },
     tokens: tokens,
   };
@@ -32,6 +33,7 @@ export default async function handler(req, res) {
     console.log(error);
     res.status(400).json({
       status: "Erro ao enviar",
+      error: error.message,
     });
   }
 }
